@@ -1,0 +1,13 @@
+[
+  {
+    "title": "Luxury Villa in West Bay",
+    "price": 4500000,
+    "area_sqm": 350,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "location": "West Bay, Doha",
+    "agent_id": 101,
+    "available": 1,
+    "description": "Spacious modern villa with private pool, landscaped garden, and sea view."
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "intent": "contact",
+    "examples": [
+      "I want to talk to an agent",
+      "Can someone call me?",
+      "I'd like to speak to a representative",
+      "Can you connect me with an agent?",
+      "I need to talk to a person"
+    ]
+  },
+  {
+    "intent": "viewing",
+    "examples": [
+      "I want to schedule a viewing",
+      "Can I see the property?",
+      "Book a tour for me",
+      "I'd like to visit the house",
+      "When can I view the apartment?"
+    ]
+  },
+  {
+    "intent": "interested",
+    "examples": [
+      "Tell me more about this property",
+      "What’s the price?",
+      "Is it still available?",
+      "Give me more details",
+      "Can you send more photos?"
+    ]
+  }
+]

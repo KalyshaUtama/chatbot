@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "title": "Modern Apartment in Doha",
+    "price": 850000,
+    "area_sqm": 120,
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "location": "The Pearl",
+    "agent_id": 1,
+    "available":1,
+    "description": "A stylish 2BR apartment with sea view and modern amenities."
+  },
+  {
+    "id": 2,
+    "title": "Villa in Al Wakrah",
+    "price": 2500000,
+    "area_sqm": 400,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "location": "Al Wakrah",
+    "agent_id": 2,
+    "available": 1,
+    "description": "Spacious villa with garden and private pool near beach."
+  },
+  {
+    "id": 3,
+    "title": "Studio near Lusail Marina",
+    "price": 400000,
+    "area_sqm": 45,
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "location": "Lusail Marina",
+    "agent_id": 3,
+    "available": 0,
+    "description": "Compact studio ideal for professionals, close to metro."
+  },
+  {
+    "id": 4,
+    "title": "Family Home in Al Rayyan",
+    "price": 1200000,
+    "area_sqm": 200,
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "location": "Al Rayyan",
+    "agent_id": 2,
+    "available": 1,
+    "description": "Perfect for families, quiet neighborhood and schools nearby."
+  },
+  {
+    "id": 5,
+    "title": "Luxury Penthouse",
+    "price": 3500000,
+    "area_sqm": 300,
+    "bedrooms": 4,
+    "bathrooms": 5,
+    "location": "West Bay",
+    "agent_id": 1,
+    "available": 0,
+    "description": "Premium unit with skyline views and private elevator access."
+  },
+  {
+    "id": 6,
+    "title": "Townhouse in Msheireb",
+    "price": 1750000,
+    "area_sqm": 180,
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "location": "Msheireb Downtown",
+    "agent_id": 3,
+    "available": true,
+    "description": "Modern townhouse with smart tech integration."
+  },
+  {
+    "id": 7,
+    "title": "Budget Apartment",
+    "price": 600000,
+    "area_sqm": 90,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "location": "Ain Khaled",
+    "agent_id": 2,
+    "available": 1,
+    "description": "Affordable housing option with good connectivity."
+  },
+  {
+    "id": 8,
+    "title": "Office Space in Lusail",
+    "price": 2200000,
+    "area_sqm": 350,
+    "bedrooms": 0,
+    "bathrooms": 2,
+    "location": "Lusail",
+    "agent_id": 1,
+    "available": 1,
+    "description": "Prime location for businesses with parking & meeting rooms."
+  }
+]
