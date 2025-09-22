@@ -11,17 +11,22 @@
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.8.19",
+		"@cloudflare/workers-types": "^4.20250917.0",
+		"@sveltejs/adapter-cloudflare": "^7.2.3",
 		"@types/node": "^24.3.3",
+		"@types/nodemailer": "^7.0.1",
 		"typescript": "^5.5.2",
 		"vitest": "~3.2.0",
-		"wrangler": "^4.34.0"
+		"wrangler": "^4.37.1"
 	},
 	"dependencies": {
 		"@cloudflare/ai": "^1.2.2",
 		"base64-js": "^1.5.1",
+		"dotenv": "^17.2.2",
 		"hono": "^4.9.6",
 		"mustache": "^4.2.0",
 		"nanoid": "^5.1.5",
+		"nodemailer": "^7.0.6",
 		"zod": "^4.1.5"
 	}
 }

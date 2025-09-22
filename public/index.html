@@ -42,20 +42,76 @@
   <h2>Uploaded Files</h2>
   <ul id="fileList"></ul>
 </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+
   <script>
+    import * as pdfjsLib from "pdfjs-dist";
+    import * as mammoth from "mammoth/mammoth.browser";
+
     const uploadForm = document.getElementById('uploadForm');
     const fileList = document.getElementById('fileList');
 
-    // Handle upload
-    uploadForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(uploadForm);
-      const res = await fetch('http://localhost:8787/upload', { method: 'POST', body: formData });
-      const result = await res.json();
-      alert(result.status || result.error);
-      uploadForm.reset();
-      loadFiles();
+    // --- Extract text depending on type ---
+  async function extractText(file) {
+    if (file.type === "application/pdf") {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let text = "";
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        text += content.items.map((s) => s.str).join(" ") + "\n\n";
+      }
+      return text;
+    } else if (
+      file.type ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    ) {
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await window.mammoth.extractRawText({ arrayBuffer });
+      return result.value;
+    } else {
+      // Fallback for txt or unknown
+      return await file.text();
+    }
+  }
+    // // Handle upload
+    // uploadForm.addEventListener('submit', async (e) => {
+    //   e.preventDefault();
+    //   const formData = new FormData(uploadForm);
+    //   const res = await fetch('http://localhost:8787/upload', { method: 'POST', body: formData });
+    //   const result = await res.json();
+    //   alert(result.status || result.error);
+    //   uploadForm.reset();
+    //   loadFiles();
+    // });
+
+    // --- Handle upload ---
+  uploadForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const file = uploadForm.elements.file.files[0]; // <--- use form.elements
+    if (!file) {
+      alert("Please choose a file");
+      return;
+    }
+
+    const text = await extractText(file);
+
+    // Wrap extracted text as if it were a file
+    const formData = new FormData();
+    formData.append("file", new Blob([text], { type: "text/plain" }), file.name);
+
+    const res = await fetch("http://localhost:8787/upload", {
+      method: "POST",
+      body: formData,
     });
+
+    const result = await res.json();
+    alert(result.status || result.error);
+    uploadForm.reset();
+    loadFiles();
+  });
 
 
     // Fetch uploaded files

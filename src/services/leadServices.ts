@@ -1,3 +1,4 @@
+
 export interface Lead {
   id: number;
   user_id: string;
@@ -10,6 +11,7 @@ export interface Lead {
   created_at?: string;
   updated_at?: string;
 }
+
 
 export class LeadService {
   constructor(private db: D1Database) {}
@@ -103,6 +105,80 @@ export class LeadService {
     }
     return null;
   }
+
+
+async sendLeadEmail(lead: Lead) {
+  const RESEND_API_KEY = "re_VQeBnaPy_BPM5KFWSf5HJE2dqCRLVaPGG"; // Wrangler injects secrets automatically
+
+  const res = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: "onboarding@resend.dev", // temporary sender for testing
+      to: "disbeliyves@gmail.com",   // recipient email
+      subject: `New Lead: ${lead.name || "Unknown"}`,
+      html: `
+        <h2>New Lead Captured</h2>
+        <p><strong>Name:</strong> ${lead.name}</p>
+        <p><strong>Email:</strong> ${lead.email}</p>
+        <p><strong>Phone:</strong> ${lead.phone}</p>
+        <p><strong>Status:</strong> ${lead.lead_status}</p>
+        <p><strong>Interested Properties:</strong></p>
+        <ul>
+          ${lead.interested_properties.map(p => `<li>${p}</li>`).join("")}
+        </ul>
+        <p><em>Created at:</em> ${lead.created_at}</p>
+      `,
+    }),
+  });
+
+  if (!res.ok) {
+    console.error("Failed to send lead email:", await res.text());
+  } else {
+    console.log("Lead email sent successfully!");
+  }
+}
+
+  //redsend requires a domain
+  // async sendLeadEmail(lead: Lead) {
+  //   const body = {
+  //     from: "lastshrimphead@gmail.com",
+  //     to: "kalyshasachiutama@gmail.com", // where the leads go
+  //     subject: `New Lead: ${lead.name || "Unknown"}`,
+  //     html: `
+  //       <h2>New Lead Captured</h2>
+  //       <p><strong>Name:</strong> ${lead.name}</p>
+  //       <p><strong>Email:</strong> ${lead.email}</p>
+  //       <p><strong>Phone:</strong> ${lead.phone}</p>
+  //       <p><strong>Status:</strong> ${lead.lead_status}</p>
+  //       <p><strong>Interested Properties:</strong></p>
+  //       <ul>
+  //         ${lead.interested_properties.map(p => `<li>${p}</li>`).join("")}
+  //       </ul>
+  //       <p><em>Created at:</em> ${lead.created_at}</p>
+  //     `,
+  //   };
+  //   const RESEND_API_KEY = "re_VQeBnaPy_BPM5KFWSf5HJE2dqCRLVaPGG"
+  //   const res = await fetch("https://api.resend.com/emails", {
+  //     method: "POST",
+  //     headers: {
+  //       Authorization: `Bearer ${RESEND_API_KEY}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(body),
+  //   });
+
+  //   if (!res.ok) {
+  //     console.error("Failed to send lead email", await res.text());
+  //   }
+  // }
+
+
+
+
 }
 
 

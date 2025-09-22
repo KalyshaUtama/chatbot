@@ -16,10 +16,10 @@
 	"vectorize": [
 		// {_
 		// 	"binding": "VECTORIZE",
-		// 	"index_name": "property-embeddings"  1024 dims
+		// 	"index_name": "property-embeddings"  1024 di
 		{
 			"binding": "VECTORIZE",
-			"index_name": "real_estate_chatbot"
+			"index_name": "dream"
 		}
 	],
 	"ai": {

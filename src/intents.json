@@ -5,8 +5,9 @@
       "I want to talk to an agent",
       "Can someone call me?",
       "I'd like to speak to a representative",
-      "Can you connect me with an agent?",
-      "I need to talk to a person"
+      "أريد التحدث إلى وكيل",
+      "هل يمكن لأحد الاتصال بي؟",
+      "أرغب في التحدث إلى ممثل"
     ]
   },
   {
@@ -15,18 +16,31 @@
       "I want to schedule a viewing",
       "Can I see the property?",
       "Book a tour for me",
-      "I'd like to visit the house",
-      "When can I view the apartment?"
+      "أريد تحديد موعد لمشاهدة العقار",
+      "هل يمكنني رؤية المنزل؟",
+      "أرغب في زيارة الشقة"
     ]
   },
   {
     "intent": "interested",
     "examples": [
       "Tell me more about this property",
-      "What’s the price?",
       "Is it still available?",
       "Give me more details",
-      "Can you send more photos?"
+      "أخبرني المزيد عن هذا العقار",
+      "هل ما زال متاحًا؟",
+      "أعطني تفاصيل إضافية"
+    ]
+  },
+  {
+    "intent": "property-search",
+    "examples": [
+      "I want a 2 bedroom apartment",
+      "Show me houses in Doha",
+      "Find me a featured villa",
+      "أريد شقة بغرفتي نوم",
+      "اعرض لي منازل في الدوحة",
+      "ابحث لي عن فيلا مميزة"
     ]
   }
 ]

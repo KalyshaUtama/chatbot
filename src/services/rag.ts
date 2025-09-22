@@ -7,14 +7,21 @@ export class RAGService {
     private db: D1Database
   ) {}
   
-  async searchProperties(query: string, filters?: PropertyFilters): Promise<Property[]> {
+  async searchDocs(query: string, filters?: PropertyFilters): Promise<Property[]> {
     // Generate embedding for query
-    const { data } = await this.ai.run('@cf/baai/bge-m3', {
-      text: query
-    });
-    
+    // console.log('Generating embedding for query:', query);
+    // Use a multilingual model for Arabic embeddings @cf/baai/bge-m3
+    const embedding = await this.ai.run('@cf/baai/bge-m3', 
+      {text: [query]}
+    )
+    console.log('Generated embedding:', embedding);
+    // Handle possible timeout or errors
+    if (!embedding || !embedding.data || !embedding.data[0]) {
+      throw new Error('Failed to generate embedding. Please check model availability and try again.');
+    }
+    console.log('Generated embedding:');
     // Vector search
-    const vectorResults = await this.vectorize.query(data[0], {
+    const vectorResults = await this.vectorize.query(embedding.data[0], {
       topK: 5,
       returnMetadata: true,
       filter: this.buildVectorFilter(filters)
@@ -43,40 +50,6 @@ export class RAGService {
     return vectorFilter;
   }
   
-  private hasNumericFilters(filters: PropertyFilters): boolean {
-    return !!(filters.minPrice || filters.maxPrice || filters.bedrooms || filters.bathrooms);
-  }
-  
-  private async searchByFilters(filters: PropertyFilters) {
-    let query = "SELECT * FROM properties WHERE 1=1";
-    const params: any[] = [];
-    
-    if (filters.minPrice) {
-      query += " AND price >= ?";
-      params.push(filters.minPrice);
-    }
-    if (filters.maxPrice) {
-      query += " AND price <= ?";
-      params.push(filters.maxPrice);
-    }
-    if (filters.bedrooms) {
-      query += " AND bedrooms = ?";
-      params.push(filters.bedrooms);
-    }
-    if (filters.bathrooms) {
-      query += " AND bathrooms = ?";
-      params.push(filters.bathrooms);
-    }
-    if (filters.area) {
-      query += " AND area LIKE ?";
-      params.push(`%${filters.area}%`);
-    }
-    
-    query += " LIMIT 20";
-    
-    const result = await this.db.prepare(query).bind(...params).all();
-    return result.results;
-  }
   
   private mergeResults(vectorResults: any, sqlResults: any[]): Property[] {
     // Implementation to merge and deduplicate
